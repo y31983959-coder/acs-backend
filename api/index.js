@@ -348,6 +348,9 @@ app.patch('/api/orders/:id', writeLimiter, wrap(async (req, res) => {
   const order = await Order.findOneAndUpdate({ id: req.params.id }, req.body, { new: true });
   if (statusChanged) sendOrderStatusSMS(order);
   res.json(order.toJSON());
+}));
+
+// ================= COUPONS =================
   // ================= COUPONS =================
 app.get('/api/coupons', wrap(async (req, res) => {
   const list = await Coupon.find();
@@ -455,4 +458,3 @@ app.post('/api/admin/backup-now', wrap(async (req, res) => {
 
 module.exports = app;
 module.exports.runBackupJob = runBackupJob;
-}));
